@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
 import User from "./User";
+import _ from "lodash";
 
 export default function () {
     const [users, setUsers] = useState<User[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const fetchAndDisplayUsers = async () => {
         const results = await fetch('users');
-        if (results.ok) {
+        if (!results.ok) {            
+            const text = await results.text();
+            console.warn("Error:", text);
+            setError(`Failed to fetch users: ${results.statusText} ${text.replace("\n", "<br>\n")}`);
+            return;
+        }
+
+        try {
             const retrievedUsers = await results.json();
             setUsers(retrievedUsers);
+        } catch (error) {
+            if (error instanceof Error)
+                setError(error.message);
         }
     };
 
@@ -17,6 +29,7 @@ export default function () {
     }, []);
 
     const reload = async () => {
+        setError(null);
         setUsers([]);
         await fetchAndDisplayUsers();
     };
