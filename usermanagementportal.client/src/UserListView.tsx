@@ -4,8 +4,14 @@ import User from "./User";
 export default function () {
     const [users, setUsers] = useState<User[]>([]);
     useEffect(() => {
-        setTimeout(() => setUsers([{ name: 'Nico', age: 42 }]), 1000);
-    })
+        setTimeout(async () => {
+            const results = await fetch('users');
+            if (results.ok) {
+                const retrievedUsers = await results.json();
+                setUsers(retrievedUsers);
+            }
+        });
+    });
 
     return (
         !users ? (
