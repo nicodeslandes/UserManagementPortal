@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserManagement.Grpc.Service";
+
+import "common/types.proto";
+
+package user_management;
+
+// The greeting service definition.
+service UserService {
+  // Sends a greeting
+  rpc GetUsers(GetUsersRequest) returns (GetUsersReply);
+}
+
+message GetUsersRequest {
+  optional string name = 1;
+}
+
+// The response message containing the greetings.
+message GetUsersReply {
+  repeated User users  = 1;
+}

@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-rc.2.23480.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
@@ -19,9 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UserManagement.Grpc.Schema\UserManagement.Grpc.Schema.csproj" />
+    <ProjectReference Include="..\UserManagement.Models\UserManagement.Models.csproj" />
     <ProjectReference Include="..\usermanagementportal.client\usermanagementportal.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\UserManagement.Grpc.Service\Protos\services.proto" GrpcServices="Client" AdditionalImportDirs="..\UserManagement.Grpc.Schema">
+      <Link>Protos\services.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserManagement.Grpc.Schema";
+
+package user_management;
+
+message User {
+  string name = 1;
+  int32 age = 2;
+  optional string address = 3;
+}

@@ -1,3 +1,6 @@
+using Grpc.Net.Client;
+using UserManagement.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,14 +22,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/users", () =>
+app.MapGet("/users", async () =>
 {
-    var users = new[]
-    {
-        new User("Nico", 42),
-        new User("Bob", 31),
-        new User("Alice", 22),
-    };
+    var channel = GrpcChannel.ForAddress("https://localhost:7073");
+    var grpcClient = new UserManagement.Grpc.Service.UserService.UserServiceClient(channel);
+
+    var response = await grpcClient.GetUsersAsync(new UserManagement.Grpc.Service.GetUsersRequest());
+    app.Logger.LogInformation("Grpc result: {grpcResult}", response);
+    var users = response.Users.Select(u => new User(u.Name, u.Age, u.Address)).ToArray();
+    app.Logger.LogInformation("Mapped items: {items}", string.Join(';', (object[])users));
     return users;
 })
 .WithName("GetUsers")
@@ -35,5 +39,3 @@ app.MapGet("/users", () =>
 app.MapFallbackToFile("/index.html");
 
 app.Run();
-
-internal record User(string Name, int Age, string? Address = null);
