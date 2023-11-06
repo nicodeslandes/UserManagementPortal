@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserManagement.Grpc.Schema\UserManagement.Grpc.Schema.csproj" />
+    <ProjectReference Include="..\UserManagement.GrpcMapping\UserManagement.GrpcMapping.csproj" />
     <ProjectReference Include="..\UserManagement.Models\UserManagement.Models.csproj" />
     <ProjectReference Include="..\usermanagementportal.client\usermanagementportal.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

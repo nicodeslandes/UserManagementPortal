@@ -1,4 +1,5 @@
 using Grpc.Net.Client;
+using UserManagement.GrpcMapping;
 using UserManagement.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +30,7 @@ app.MapGet("/users", async () =>
 
     var response = await grpcClient.GetUsersAsync(new UserManagement.Grpc.Service.GetUsersRequest());
     app.Logger.LogInformation("Grpc result: {grpcResult}", response);
-    var users = response.Users.Select(u => new User(u.Name, u.Age, u.Address)).ToArray();
+    var users = response.Users.Select(u => u.ToModel()).ToArray();
     app.Logger.LogInformation("Mapped items: {items}", string.Join(';', (object[])users));
     return users;
 })
