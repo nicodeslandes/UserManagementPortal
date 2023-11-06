@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import './index.css';
 import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
+    BulbOutlined,
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import UserListView from './UserListView';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,15 +28,13 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
+    getItem('Users', '1', <TeamOutlined />),
     getItem('User', 'sub1', <UserOutlined />, [
         getItem('Tom', '3'),
         getItem('Bill', '4'),
         getItem('Alex', '5'),
     ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('About', '9', <BulbOutlined />),
 ];
 
 const App: React.FC = () => {
@@ -52,17 +50,15 @@ const App: React.FC = () => {
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
             <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }} />
+                <Header style={{ paddingLeft: 10, background: colorBgContainer }}>
+                    <h2 style={{ margin: 0, padding: 0 }}>
+                        User Management Portal
+                    </h2>
+                </Header>
                 <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
-                        Bill is a cat.
-                    </div>
+                   <UserListView />
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design �2023 Created by Ant UED</Footer>
+                <Footer style={{ textAlign: 'center' }}>Ant Design ©️2023 Created by Ant UED</Footer>
             </Layout>
         </Layout>
     );
