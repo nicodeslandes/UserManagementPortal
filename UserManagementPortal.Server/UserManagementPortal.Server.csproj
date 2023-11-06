@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -26,12 +26,6 @@
     <ProjectReference Include="..\usermanagementportal.client\usermanagementportal.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="..\UserManagement.Grpc.Service\Protos\services.proto" GrpcServices="Client" AdditionalImportDirs="..\UserManagement.Grpc.Schema">
-      <Link>Protos\services.proto</Link>
-    </Protobuf>
   </ItemGroup>
 
 </Project>
