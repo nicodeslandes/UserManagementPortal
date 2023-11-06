@@ -25,7 +25,7 @@ app.UseHttpsRedirection();
 
 app.MapGet("/users", async () =>
 {
-    var channel = GrpcChannel.ForAddress("https://localhost:7073");
+    var channel = GrpcChannel.ForAddress("http://localhost:5144");
     var grpcClient = new UserManagement.Grpc.Service.UserService.UserServiceClient(channel);
 
     var response = await grpcClient.GetUsersAsync(new UserManagement.Grpc.Service.GetUsersRequest());

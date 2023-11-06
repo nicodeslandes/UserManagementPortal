@@ -34,14 +34,24 @@ export default function () {
         await fetchAndDisplayUsers();
     };
 
-    return (
-        !users ? (
+    if (!users && !error) {
+        return (
             <div>Loading users</div>
-        ) : (<>
-                <button onClick={reload}>Reload</button>
-                <div>Users:</div>
-                {users.map(u => <div>User {u.name} (age {u.age})</div>)}
-            </>
-        )
-    );
+        );
+    }
+    
+    return (
+        <>
+            <button onClick={reload}>Reload</button>
+            {
+                error ? (
+                    <p> Error: <div dangerouslySetInnerHTML={{ __html: error }} /></p >
+                ) : (
+                    <>
+                            <div>Users:</div>
+                            {users.map(u => <div key={u.name}>User {u.name} (age {u.age}) scored {u.score} - Personal Best: {u.personalBest}</div>)}
+                    </>
+                )
+            }
+        </>);
 }
